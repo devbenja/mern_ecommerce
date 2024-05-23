@@ -1,11 +1,12 @@
-import NavBar from "./components/Navigation/NavBar"
+import NavBar from "./components/Navigation/NavBar";
+import { HomePage } from "./pages/Home/HomePage.jsx";
 
 
 export const App = () => {
   return (
     <>
       <NavBar/>
-      <div className="text-xl mt-7 ml-5">Inicio del Ecommerce</div>
+      <HomePage/>
     </>
     
   )

@@ -277,7 +277,7 @@ export default function NavBar() {
 
             <header className="relative bg-white border-b border-gray-300">
 
-                <p className="flex h-8 items-center justify-center bg-indigo-800 px-4 text-sm font-medium text-white sm:px-6 lg:px-8">
+                <p className="flex h-8 items-center justify-center bg-indigo-600 px-4 text-sm font-medium text-white sm:px-6 lg:px-8">
                     Get free delivery on orders over $100
                 </p>
 
