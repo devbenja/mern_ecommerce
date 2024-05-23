@@ -2,7 +2,7 @@ import { HomeCarousel } from "../../components/Carousel/HomeCarousel.jsx"
 
 export const HomePage = () => {
   return (
-    <div className="bg-black">
+    <div className="h-full">
         <HomeCarousel/>
     </div>
   )
