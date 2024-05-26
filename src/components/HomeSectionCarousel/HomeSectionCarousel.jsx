@@ -25,7 +25,7 @@ export const HomeSectionCarousel = ({ data, sectionName }) => {
     return (
         <div className=''>
             <h2 className='text-xl font-bold px-4 mb-6'>{sectionName}</h2>
-            <div className='relative p-2 pl-10 border border-gray-200'>
+            <div className='relative p-2 pl-10 border border-gray-200 rounded-lg'>
                 <AliceCarousel
                     items={items}
                     disableButtonsControls
