@@ -137,7 +137,7 @@ export default function NavBar() {
         <div className="bg-white">
             {/* Mobile menu */}
             <Transition.Root show={open} as={Fragment}>
-                <Dialog className="relative z-40 lg:hidden" onClose={setOpen}>
+                <Dialog className="relative z-[999] lg:hidden" onClose={setOpen}>
                     <Transition
                         as={Fragment}
                         enter="transition-opacity ease-linear duration-300"
@@ -223,9 +223,9 @@ export default function NavBar() {
                                                         >
                                                             {section.items.map((item) => (
                                                                 <li key={item.name} className="flow-root">
-                                                                    <a href={item.href} className="-m-2 block p-2 text-gray-500">
+                                                                    <Link onClick={() => setOpen(false)} to={item.href} className="-m-2 block p-2 text-gray-500">
                                                                         {item.name}
-                                                                    </a>
+                                                                    </Link>
                                                                 </li>
                                                             ))}
                                                         </ul>
@@ -276,7 +276,7 @@ export default function NavBar() {
                 </Dialog>
             </Transition.Root>
 
-            <header className="relative bg-white border-b border-gray-300">
+            <header className="relative bg-white border-b border-gray-300 z-[999]">
 
                 <p className="flex h-8 items-center justify-center bg-indigo-600 px-4 text-sm font-medium text-white sm:px-6 lg:px-8">
                     Get free delivery on orders over $100
@@ -376,9 +376,9 @@ export default function NavBar() {
                                                                                     >
                                                                                         {section.items.map((item) => (
                                                                                             <li key={item.name} className="flex">
-                                                                                                <a href={item.href} className="hover:text-gray-800">
-                                                                                                    {item.name}
-                                                                                                </a>
+                                                                                                <Link to={item.href} className="hover:text-gray-800">
+                                                                                                    {item.name} 
+                                                                                                </Link>
                                                                                             </li>
                                                                                         ))}
                                                                                     </ul>
