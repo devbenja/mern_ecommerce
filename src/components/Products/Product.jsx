@@ -1,24 +1,17 @@
 
 import { Fragment, useState } from 'react';
+//import { useLocation } from 'react-router-dom';
+
 import {
-  Dialog,
-  DialogPanel,
-  Disclosure,
-  DisclosureButton,
-  DisclosurePanel,
-  Menu,
-  MenuButton,
-  MenuItem,
-  MenuItems,
-  Transition,
-  TransitionChild,
+  Dialog, DialogPanel, Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton,
+  MenuItem, MenuItems, Transition, TransitionChild,
 } from '@headlessui/react';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 import { ChevronDownIcon, FunnelIcon, MinusIcon, PlusIcon } from '@heroicons/react/20/solid';
 
 import { ProductCard } from './ProductCard';
 import { men_shirts } from '../../Data/Men/men_shirts.js';
-import { filters, singleFilter } from '../../Data/ProductFiltersData.js';
+import { filters, singleFilter, sortOptions } from '../../Data/ProductFiltersData.js';
 
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
@@ -26,18 +19,39 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
 import FilterListIcon from '@mui/icons-material/FilterList';
+import { useLocation, useNavigate } from 'react-router-dom';
 
-const sortOptions = [
-  { name: 'Price: Low to High', href: '#', current: false },
-  { name: 'Price: High to Low', href: '#', current: false },
-]
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
 export const Product = () => {
-  const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false)
+
+  const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const handleFilter = (value, sectionId) => {
+
+    const searchParams = new URLSearchParams(location.search);
+    let filterValues = searchParams.get(sectionId) ? searchParams.get(sectionId).split(",") : [];
+  
+    if (filterValues.includes(value)) {
+      filterValues = filterValues.filter((item) => item !== value);
+    } else {
+      filterValues.push(value);
+    }
+  
+    if (filterValues.length > 0) {
+      searchParams.set(sectionId, filterValues.join(","));
+    } else {
+      searchParams.delete(sectionId);
+    }
+  
+    navigate({ search: `?${searchParams.toString()}` });
+
+  }
 
   return (
     <div className="bg-white">
@@ -103,6 +117,7 @@ export const Product = () => {
                                 {section.options.map((option, optionIdx) => (
                                   <div key={option.value} className="flex items-center">
                                     <input
+                                      onChange={() => handleFilter(option.value, section.id)}
                                       id={`filter-mobile-${section.id}-${optionIdx}`}
                                       name={`${section.id}[]`}
                                       defaultValue={option.value}
@@ -169,6 +184,7 @@ export const Product = () => {
             </div>
           </Dialog>
         </Transition>
+        {/*End Mobile*/}
 
         <main className="mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-baseline justify-between border-b border-gray-200 pb-6 pt-5">
@@ -265,6 +281,7 @@ export const Product = () => {
                               {section.options.map((option, optionIdx) => (
                                 <div key={option.value} className="flex items-center">
                                   <input
+                                    onChange={() => handleFilter(option.value, section.id)}
                                     id={`filter-${section.id}-${optionIdx}`}
                                     name={`${section.id}[]`}
                                     defaultValue={option.value}
@@ -314,7 +331,7 @@ export const Product = () => {
                                   {section.options.map((option, optionIdx) => (
 
 
-                                    <FormControlLabel value={option.value} control={<Radio />} label={option.label} />
+                                    <FormControlLabel key={option.value} value={option.value} control={<Radio />} label={option.label} />
 
                                   ))}
                                 </RadioGroup>
@@ -337,6 +354,7 @@ export const Product = () => {
                   {
                     men_shirts.map((item) =>
                       <ProductCard
+                        key={item.imageUrl}
                         brand={item.brand}
                         title={item.title}
                         imageUrl={item.imageUrl}

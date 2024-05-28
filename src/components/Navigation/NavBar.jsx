@@ -1,6 +1,7 @@
 import { Fragment, useState } from 'react'
 import { Dialog, Popover, Tab, Transition } from '@headlessui/react'
 import { Bars3Icon, MagnifyingGlassIcon, ShoppingBagIcon, XMarkIcon } from '@heroicons/react/24/outline'
+import { Link } from 'react-router-dom';
 
 const navigation = {
     categories: [
@@ -85,7 +86,7 @@ const navigation = {
                     id: 'clothing',
                     name: 'Clothing',
                     items: [
-                        { name: 'Tops', href: '#' },
+                        { name: 'Tops', href: '/men_shirts' },
                         { name: 'Pants', href: '#' },
                         { name: 'Sweaters', href: '#' },
                         { name: 'T-Shirts', href: '#' },
@@ -296,14 +297,14 @@ export default function NavBar() {
 
                             {/* Logo */}
                             <div className="ml-4 flex lg:ml-0">
-                                <a href="#">
+                                <Link to="/">
                                     <span className="sr-only">Ecommerce</span>
                                     <img
                                         className="h-12 w-auto"
                                         src="/logo.png"
                                         alt=""
                                     />
-                                </a>
+                                </Link>
                             </div>
 
                             {/* Flyout menus */}
