@@ -53,6 +53,12 @@ export const Product = () => {
 
   }
 
+  const handleRadioFilterChange = (e, sectionId) => {
+    const searchParams = new URLSearchParams(location.search);
+    searchParams.set(sectionId, e.target.value);
+    navigate({ search: `?${searchParams.toString()}` });
+  }
+
   return (
     <div className="bg-white">
       <div>
@@ -331,7 +337,7 @@ export const Product = () => {
                                   {section.options.map((option, optionIdx) => (
 
 
-                                    <FormControlLabel key={option.value} value={option.value} control={<Radio />} label={option.label} />
+                                    <FormControlLabel onChange={(e) => handleRadioFilterChange(e, section.id)} key={option.value} value={option.value} control={<Radio />} label={option.label} />
 
                                   ))}
                                 </RadioGroup>
